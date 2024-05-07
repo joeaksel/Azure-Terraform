@@ -103,6 +103,8 @@ resource "azurerm_linux_virtual_machine" "linuxvm1" {
   admin_username        = "adminuser"
   network_interface_ids = [azurerm_network_interface.terraform-nic1.id]
 
+  custom_data = filebase64("customdata.tpl")
+
   admin_ssh_key {
     username   = "adminuser"
     public_key = file("~/.ssh/id_rsa.pub")
@@ -118,6 +120,19 @@ resource "azurerm_linux_virtual_machine" "linuxvm1" {
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
     version   = "latest"
+  }
+
+  provisioner "local-exec" {
+    command = templatefile("windows-ssh-script.tpl", {
+      hostname     = self.public_ip_address,
+      user         = "adminuser",
+      identityfile = "~/.ssh/id_rsa"
+    })
+    interpreter = ["Powershell", "-Command"]
+  }
+
+  tags = {
+    environment = "terraform"
   }
 }
 
