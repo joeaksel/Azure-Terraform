@@ -1,6 +1,1 @@
-# Azure-Terraform
-
-5/2/24 Starting Azure Terraform project!
-Using this video as a guide:
-https://www.youtube.com/watch?v=V53AHWun17s
-
+Used Terraform to deploy an Azure dev environment including a Linux VM with Docker loaded, NIC, public IP and SSH key pair for remote access. Created remote SSH scripts for Windows and Linux and used Terraform variables with conditionals to determine which script to use based on client's OS. 
