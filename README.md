@@ -10,4 +10,6 @@ Terraform apply -auto-approve
 
 VM creds
 U: adminuser
-SSH private key \Users\[user]\.ssh\id_rsa
+
+ssh -i ~/.ssh/id_rsa adminuser@[public ip]
+
